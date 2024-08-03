@@ -1,27 +1,18 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
-    <title>Header</title>
-</head>
-<body>
+{% load static %}
  <div class="header">
             <div class="header-left">
                <a href="index.html" class="logo">
-               <img src="{% static 'assets/img/logo.png' %}" alt="Logo">
+               <img src="{% static 'assets/img/logo.png' %}" height="154px" width="40px"  alt="Logo2"><span>StudentSphere</span>
                </a>
                <a href="index.html" class="logo logo-small">
-               <img src="{% static 'assets/img/logo.png' %}" alt="Logo" width="30" height="30">
+               <img src="{% static 'assets/img/logo2.png' %}" alt="Logo" width="30" height="30">
                </a>
             </div>
             <a href="javascript:void(0);" id="toggle_btn">
             <i class="fas fa-align-left"></i>
             </a>
-            <div class="top-nav-search">
-               <form>
-                  <input type="text" class="form-control" placeholder="Search here">
-                  <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-               </form>
+            <div class="top-nav-search mt-3">
+               <h4><strong>Welcome<span>  {{user.first_name}} {{user.last_name}} !!</span> </strong></h4>
             </div>
             <a class="mobile_btn" id="mobile_btn">
             <i class="fas fa-bars"></i>
@@ -42,7 +33,7 @@
                               <a href="#">
                                  <div class="media">
                                     <span class="avatar avatar-sm">
-                                    <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-02.jpg">
+                                    <img class="avatar-img rounded-circle" alt="User Image" src="{% static 'assets/img/profiles/avatar-02.jpg' %}">
                                     </span>
                                     <div class="media-body">
                                        <p class="noti-details"><span class="noti-title">Carlson Tech</span> has approved <span class="noti-title">your estimate</span></p>
@@ -55,7 +46,7 @@
                               <a href="#">
                                  <div class="media">
                                     <span class="avatar avatar-sm">
-                                    <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-11.jpg">
+                                    <img class="avatar-img rounded-circle" alt="User Image" src="{% static 'assets/img/profiles/avatar-11.jpg' %}">
                                     </span>
                                     <div class="media-body">
                                        <p class="noti-details"><span class="noti-title">International Software Inc</span> has sent you a invoice in the amount of <span class="noti-title">$218</span></p>
@@ -68,7 +59,7 @@
                               <a href="#">
                                  <div class="media">
                                     <span class="avatar avatar-sm">
-                                    <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-17.jpg">
+                                    <img class="avatar-img rounded-circle" alt="User Image" src="{% static 'assets/img/profiles/avatar-17.jpg' %}">
                                     </span>
                                     <div class="media-body">
                                        <p class="noti-details"><span class="noti-title">John Hendry</span> sent a cancellation request <span class="noti-title">Apple iPhone XR</span></p>
@@ -81,7 +72,7 @@
                               <a href="#">
                                  <div class="media">
                                     <span class="avatar avatar-sm">
-                                    <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-13.jpg">
+                                    <img class="avatar-img rounded-circle" alt="User Image" src="{% static 'assets/img/profiles/avatar-13.jpg' %}">
                                     </span>
                                     <div class="media-body">
                                        <p class="noti-details"><span class="noti-title">Mercury Software Inc</span> added a new product <span class="noti-title">Apple MacBook Pro</span></p>
@@ -99,25 +90,29 @@
                </li>
                <li class="nav-item dropdown has-arrow">
                   <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                  <span class="user-img"><img class="rounded-circle" src="assets/img/profiles/avatar-01.jpg" width="31" alt="Ryan Taylor"></span>
+                  <span class="user-img"><img class="rounded-circle" src="/{{user.profile_pic}}" width="31" alt="Ryan Taylor"></span>
                   </a>
                   <div class="dropdown-menu">
                      <div class="user-header">
                         <div class="avatar avatar-sm">
-                           <img src="assets/img/profiles/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle">
+                           <img src="/{{user.profile_pic}}" alt="User Image" class="avatar-img rounded-circle">
                         </div>
                         <div class="user-text">
-                           <h6>Ryan Taylor</h6>
-                           <p class="text-muted mb-0">Administrator</p>
+                           <h6>{{user.first_name}} {{user.last_name}}</h6>
+                           {% if user.user_type == '1' %}
+                           <p class="text-muted mb-0">Head Of Department</p>
+                           {% elif user.user_type == '2' %}
+                           <p class="text-muted mb-0">Staff</p>
+                           {% else %}
+                           <p class="text-muted mb-0">Student</p>
+                           {% endif %}
                         </div>
                      </div>
-                     <a class="dropdown-item" href="profile.html">My Profile</a>
+                     <a class="dropdown-item" href="{% url 'profile'%}">Profile Update</a>
                      <a class="dropdown-item" href="inbox.html">Inbox</a>
-                     <a class="dropdown-item" href="login.html">Logout</a>
+                     <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                   </div>
                </li>
             </ul>
          </div>
 
-</body>
-</html>
