@@ -11,7 +11,7 @@ class CustomUser(AbstractUser):
         ('3', 'STUDENT')
     )
 
-    user_type = models.CharField(choices=USER, max_length=50, default=1)
+    user_type = models.CharField(choices=USER, max_length=50, default='1')
     profile_pic = models.ImageField(upload_to='media/profile_pic')
 
 
@@ -31,7 +31,7 @@ class Session_Year(models.Model):
     session_end = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.session_start + " to " + self.session_end
+        return f"{self.session_start} to {self.session_end}"
 
 
 class Student(models.Model):
