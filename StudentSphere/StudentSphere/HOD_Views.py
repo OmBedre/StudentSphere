@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from app.models import Course, Session_Year, CustomUser, Student
@@ -11,7 +11,11 @@ def home(request):
 
 
 def VIEW_STUDENTS(request):
-    return render(request, 'HOD/view_student.html')
+    students = Student.objects.all()
+    context = {
+        'students': students,
+    }
+    return render(request, 'HOD/Student/view_student.html', context)
 
 
 @login_required(login_url='/')
@@ -48,7 +52,7 @@ def ADD_STUDENTS(request):
                 username=username,
                 email=email,
                 profile_pic=profile_pic,
-                user_type='3'  # Set user type to 'STUDENT'
+                user_type='3'
             )
             user.set_password(password)
             user.save()
@@ -72,13 +76,48 @@ def ADD_STUDENTS(request):
                 gender=gender
             )
             student.save()
-            messages.success(request, user.first_name + " " + user.last_name+"Successfully Created")
+            messages.success(request, user.first_name + " " + user.last_name + "Successfully Created")
             return redirect('add_students')
 
     context = {
         'courses': courses,
         'session_years': session_years
     }
-    return render(request, 'HOD/add_student.html', context)
+    return render(request, 'HOD/Student/add_student.html', context)
 
 
+@login_required(login_url='/')
+def EDIT_STUDENTS(request, id):
+    student = get_object_or_404(Student, id=id)
+    courses = Course.objects.all()
+    session_years = Session_Year.objects.all()
+    context = {
+        'student': student,
+        'courses': courses,
+        'session_years': session_years,
+    }
+
+
+
+    if request.method == "POST":
+        profile_pic = request.FILES.get('profile_pic')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        password = request.POST.get('password')
+        gender = request.POST.get('gender')
+        course = request.POST.get('course_id')
+        session_year_id = request.POST.get('session_year_id')
+
+    return render(request, 'HOD/Student/edit_student.html', context)
+
+
+def UPDATE_STUDENTS(request):
+    student = get_object_or_404(Student, id=id)
+    courses = Course.objects.all()
+    session_years = Session_Year.objects.all()
+    context = {
+        'student': student,
+        'courses': courses,
+        'session_years': session_years,
+    }
+    return render(request,'HOD/Student/edit_student.html',context)
