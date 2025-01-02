@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',  # Ensure this matches your app directory name
+    'active_link',
 ]
 
 MIDDLEWARE = [

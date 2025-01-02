@@ -40,4 +40,26 @@ urlpatterns = [
                   path('HOD/Subject/Update', HOD_Views.UPDATE_SUBJECT, name='update_subject'),
                   path('HOD/Subject/Delete/<str:id>', HOD_Views.DELETE_SUBJECT, name='delete_subject'),
 
+                  path('HOD/Session/Add', HOD_Views.ADD_SESSION, name='add_session'),
+                  path('HOD/Session/View', HOD_Views.VIEW_SESSIONS, name='view_sessions'),
+                  path('HOD/Session/Edit/<str:id>', HOD_Views.EDIT_SESSION, name='edit_session'),
+                  path('HOD/Session/Delete/<str:id>', HOD_Views.DELETE_SESSION, name='delete_session'),
+                  path('HOD/Session/Update', HOD_Views.UPDATE_SESSION, name='update_session'),
+                  path('HOD/Staff/Send_Notifications', HOD_Views.SEND_STAFF_NOTIFICATION,
+                       name='send_staff_notification'),
+                  path('HOD/Staff/Save_Notifications', HOD_Views.SAVE_STAFF_NOTIFICATION,
+                       name='save_staff_notification'),
+                  path('HOD/Staff/Leave_Applied', HOD_Views.STAFF_LEAVE_APPLIED_VIEW, name='staff_leave_applied_view'),
+                  path('HOD/Staff/Approve_Leave/<str:id>', HOD_Views.STAFF_APPROVE_LEAVE, name='staff_approve_leave'),
+                  path('HOD/Staff/Disapprove_Leave/<str:id>', HOD_Views.STAFF_DISAPPROVE_LEAVE,
+                       name='staff_disapprove_leave'),
+
+
+                  #     Staff Panel      #
+                  path('Staff/Home', Staff_Views.HOME, name='staff_home'),
+                  path('Staff/Notifications', Staff_Views.NOTIFICATIONS, name='staff_notifications'),
+                  path('Staff/Notification/Mark_as_Done/<str:status>', Staff_Views.Mark_as_Done, name="mark_as_done"),
+                  path('Staff/Apply_Leave', Staff_Views.LEAVE_APPLICATION, name='staff_apply_leave'),
+                  path('Staff/Apply_Leave_Save', Staff_Views.LEAVE_APPLY_SAVE, name='staff_leave_apply_save'),
+
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -28,7 +28,7 @@ def doLogin(request):
             if user_type == '1':
                 return redirect('HOD_home')
             elif user_type == '2':
-                return HttpResponse('This is Staff panel')
+                return redirect('staff_home')
             elif user_type == '3':
                 return HttpResponse('This is Student panel')
             else:
@@ -55,6 +55,7 @@ def PROFILE(request):
     }
     return render(request, 'profile.html', context)
 
+
 @login_required(login_url='/')
 def PROFILE_UPDATE(request, none=None):
     if request.method == 'POST':
@@ -76,10 +77,10 @@ def PROFILE_UPDATE(request, none=None):
             if profile_pic != "" and profile_pic is not None:
                 customuser.profile_pic = profile_pic
             customuser.save()
-            messages.success(request,'Your Profile updated Successfully')
+            messages.success(request, 'Your Profile updated Successfully')
             return redirect('profile')
 
         except:
-            messages.error(request,'Failed to update your Profile')
+            messages.error(request, 'Failed to update your Profile')
 
     return render(request, 'profile.html')
